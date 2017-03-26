@@ -1,0 +1,66 @@
+#!/usr/bin/env zsh
+
+blue="\e[94m"
+magenta="\e[35m"
+white="\e[97m"
+
+get_yaml_value() {
+    file=$1
+    pattern="\.*$2: "
+    sedprog="s/$pattern//"
+    cat $file | grep $pattern | sed $sedprog | sed 's/ //g' | sed 's/,//'
+}
+
+init_gitignore() {
+    printf "__pycache__/\n" > .gitignore
+    passfile=`get_yaml_value config.yml secret`
+    printf "$passfile\n" >> .gitignore
+}
+
+install() {
+    # create symbolic link to path
+    echo "creating symbolic link to $1..."
+    binpath=$1
+    linkpath=$1/otf
+    if [[ -h $linkpath ]]; then
+        rm -f $linkpath
+    fi
+    ln -s `pwd`/otf $linkpath
+
+    #initializes .gitignore file with secret
+    echo "initializing gitignore file..."
+    init_gitignore
+
+    echo "setting up python environment..."
+    python setup.py install
+}
+
+dump_sql() {
+    sqlite3 -column -header $1 'SELECT * FROM performance_history'
+}
+
+server() {
+    python record-server.py
+}
+
+update() {
+    python update_records.py
+}
+
+help() {
+    echo $blue"help$white      $magenta\$OTF HELP$white            prints this menu and exits"
+    echo $blue"install$white   $magenta\$OTF INSTALL BINPATH$white installs script to path"
+    echo $blue"dump_sql$white  $magenta\$OTF DUMP_SQL DB$white     dumps formatted DB rows to STDOUT"
+    echo $blue"update$white    $magenta\$OTF UPDATE$white          calls update_records.py"
+    echo $blue"server$white    $magenta\$OTF SERVER$white          calls record-server.py"
+}
+
+# execute the function specified from command line
+# echo 'get_yaml_value:       $otf GET_YAML_VALUE FILE.YML KEYNAME returns value associated with KEYNAME'
+if [[ $1 == "help" ]]; then
+    help
+elif [[ $# == 0 ]]; then
+    help
+else
+    $1 $2 $3
+fi

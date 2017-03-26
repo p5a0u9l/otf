@@ -1,6 +1,6 @@
 {
     gmail: {
-        secret: .secret.yml
+        secret: .secret.yml,
         label: otf
     },
     database: {

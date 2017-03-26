@@ -2,6 +2,7 @@ import bs4
 import imaplib
 import yaml
 import sqlite3
+import time
 from dateutil.parser import parse as datetime_parser
 from email.parser import BytesHeaderParser
 
@@ -57,7 +58,8 @@ def iter_emails(gmail, db):
         ts = get_timestamp(bytetxt)
         dbc.execute(config['sql']['exists'].format(ts))
         if dbc.fetchall()[0][0] == 1:
-            print("SQL: skipping existing record...")
+            print("SQL: skipping existing record stamped {}...".format(
+                    time.ctime(ts)))
             continue
 
         soup = bs4.BeautifulSoup(bytetxt, "html.parser")
