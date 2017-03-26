@@ -1,11 +1,11 @@
 {
-    login: {
-        uname: "p5a0u9l",
-        passw: "{V9&K}!$i~a]GqE;a~KG"
+    gmail: {
+        secret: .secret.yml
+        label: otf
     },
     database: {
-        name: "otf.db",
-        table: "performance_history",
+        name: otf.db,
+        table: performance_history,
         columns: {
             "CALORIES BURNED": "CALORIESBURNED",
             "AVG HR": "AVGHR",
@@ -14,12 +14,14 @@
         }
     },
     sql: {
+        exists: "SELECT EXISTS 
+            (SELECT 1 FROM performance_history WHERE TIMESTAMP = {});
+            ",
         insert: "INSERT INTO performance_history 
             (TIMESTAMP, CALORIESBURNED, AVGHR, PERCENTAVG, SPLATPOINTS)
             SELECT {},{},{},{},{}
             WHERE NOT EXISTS 
             (SELECT 1 FROM performance_history WHERE TIMESTAMP = {});",
-
         create: "CREATE TABLE 
             IF NOT EXISTS performance_history (
             TIMESTAMP REAL PRIMARY KEY,
