@@ -1,0 +1,32 @@
+{
+    login: {
+        uname: "p5a0u9l",
+        passw: "{V9&K}!$i~a]GqE;a~KG"
+    },
+    database: {
+        name: "otf.db",
+        table: "performance_history",
+        columns: {
+            "CALORIES BURNED": "CALORIESBURNED",
+            "AVG HR": "AVGHR",
+            "% AVG": "PERCENTAVG",
+            "SPLAT POINTS": "SPLATPOINTS"
+        }
+    },
+    sql: {
+        insert: "INSERT INTO performance_history 
+            (TIMESTAMP, CALORIESBURNED, AVGHR, PERCENTAVG, SPLATPOINTS)
+            SELECT {},{},{},{},{}
+            WHERE NOT EXISTS 
+            (SELECT 1 FROM performance_history WHERE TIMESTAMP = {});",
+
+        create: "CREATE TABLE 
+            IF NOT EXISTS performance_history (
+            TIMESTAMP REAL PRIMARY KEY,
+            CALORIESBURNED INTEGER NOT NULL,
+            AVGHR INTEGER NOT NULL,
+            PERCENTAVG INTEGER NOT NULL,
+            SPLATPOINTS INTEGER NOT NULL
+            );"
+    }
+}
