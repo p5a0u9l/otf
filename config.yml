@@ -1,4 +1,7 @@
 {
+    app: {
+        binpath: /usr/local/bin
+    },
     gmail: {
         secret: .secret.yml,
         label: otf

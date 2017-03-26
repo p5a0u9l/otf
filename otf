@@ -3,6 +3,7 @@
 blue="\e[94m"
 magenta="\e[35m"
 white="\e[97m"
+red="\e[91m"
 
 get_yaml_value() {
     file=$1
@@ -19,20 +20,36 @@ init_gitignore() {
 
 install() {
     # create symbolic link to path
-    echo "creating symbolic link to $1..."
-    binpath=$1
-    linkpath=$1/otf
-    if [[ -h $linkpath ]]; then
-        rm -f $linkpath
+    binpath=`get_yaml_value config.yml binpath`
+    linkpath=$binpath/otf
+    sourcepath=`pwd`/otf
+    passfile=`get_yaml_value config.yml secret`
+
+    if [[ -h $linkpath ]]; then rm -f $linkpath; fi
+
+    echo $blue"INFO:$white linking $sourcepath to $linkpath..."
+    ln -s $sourcepath $linkpath
+
+    if [[ -f $passfile ]]; then
+        echo $red"WARNING:$white $passfile already exists... edit manually"
+    else
+        echo $blue"INFO:$white setting up gmail login file..."
+        echo -n $blue"PROMPT:$white Enter username --> "
+        read uname
+        echo -n $blue"PROMPT:$white Enter password --> "
+        read passw
+        echo $magenta"INFO:$white creating $passfile..."
+        echo "{"
+        echo "uname: $uname,"
+        echo "passw: $passw"
+        echo "}"
     fi
-    ln -s `pwd`/otf $linkpath
 
     #initializes .gitignore file with secret
-    echo "initializing gitignore file..."
+    echo $blue"INFO:$white initializing gitignore to ignore $passfile..."
     init_gitignore
 
-    echo "setting up python environment..."
-    python setup.py install
+    echo $blue"INFO:$white install complete."
 }
 
 dump_sql() {
