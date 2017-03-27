@@ -16,7 +16,7 @@ This program runs a simple python loop which periodically pings a single-purpose
 
 _NOTE: This will install the external library dependancies on your system. It is always a good idea to isolate python programs in virtual environments, see [virtualenv](https://virtualenv.pypa.io/en/stable/)._
 
-* If you already know what you're doing
+If you already know what you're doing
 
     $ pyenv virtualenv 3.6.0 otf
     $ pyenv activate otf
