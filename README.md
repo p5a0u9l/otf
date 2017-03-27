@@ -21,7 +21,9 @@ _NOTE_
 * If you already know what you're doing, 
 
     $ pyenv virtualenv 3.6.0 otf
+
     $ pyenv activate otf
+
     $ pip install requirements.txt
 
 ### run the install hook
