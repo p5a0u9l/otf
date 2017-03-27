@@ -8,29 +8,30 @@ This program runs a simple python loop which periodically pings a single-purpose
 
 ## Install
 
-* clone the repository
+### clone the repository
 
     $ git clone https://github.com/p5a0u9l/otf
 
-* install the python requirements
+### install the python requirements
 
-* NOTE:
+_NOTE_
 
-o This will install the external library dependancies on your system. It is always a good idea to isolate python programs in virtual environments, see [virtualenv](https://virtualenv.pypa.io/en/stable/).
+* This will install the external library dependancies on your system. It is always a good idea to isolate python programs in virtual environments, see [virtualenv](https://virtualenv.pypa.io/en/stable/).
 
-o If you already know what you're doing, 
+* If you already know what you're doing, 
 
     $ pyenv virtualenv 3.6.0 otf
     $ pyenv activate otf
     $ pip install requirements.txt
 
-* run the install hook
+### run the install hook
 
     $ ./otf install
     
-* Caveats:
+#### caveats
 
-o authentication (see discussion below)
+* authentication (see discussion below)
 
-o file permissions. The installer links the shell script to `/usr/local/bin/` by default, but this can be changed in [`config.yml`](./config.yml). 
+* file permissions. 
+The installer links the shell script to `/usr/local/bin/` by default, but this can be changed in [`config.yml`](./config.yml). 
 
