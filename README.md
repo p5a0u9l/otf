@@ -14,9 +14,7 @@ This program runs a simple python loop which periodically pings a single-purpose
 
 ### install the python requirements
 
-_NOTE_
-
-* This will install the external library dependancies on your system. It is always a good idea to isolate python programs in virtual environments, see [virtualenv](https://virtualenv.pypa.io/en/stable/).
+_NOTE This will install the external library dependancies on your system. It is always a good idea to isolate python programs in virtual environments, see [virtualenv](https://virtualenv.pypa.io/en/stable/)._
 
 * If you already know what you're doing, 
 
