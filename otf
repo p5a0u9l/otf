@@ -16,6 +16,8 @@ init_gitignore() {
     printf "__pycache__/\n" > .gitignore
     passfile=`get_yaml_value config.yml secret`
     printf "$passfile\n" >> .gitignore
+    dbfile=`get_yaml_value config.yml name`
+    printf "$dbfile\n" >> .gitignore
 }
 
 install() {
@@ -31,7 +33,7 @@ install() {
     ln -s $sourcepath $linkpath
 
     if [[ -f $passfile ]]; then
-        echo $red"WARNING:$white $passfile already exists... edit manually"
+        echo $red"WARNING:$white $passfile already exists... edit manually or remove and rerun"
     else
         echo $blue"INFO:$white setting up gmail login file..."
         echo -n $blue"PROMPT:$white Enter username --> "
