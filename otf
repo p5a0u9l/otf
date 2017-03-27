@@ -21,7 +21,6 @@ init_gitignore() {
 }
 
 install() {
-    # create symbolic link to path
     binpath=`get_yaml_value config.yml binpath`
     linkpath=$binpath/otf
     sourcepath=`pwd`/otf
@@ -41,10 +40,7 @@ install() {
         echo -n $blue"PROMPT:$white Enter password --> "
         read passw
         echo $magenta"INFO:$white creating $passfile..."
-        echo "{"
-        echo "uname: $uname,"
-        echo "passw: $passw"
-        echo "}"
+        echo "{ uname: $uname, passw: $passw }" > $passfile
     fi
 
     #initializes .gitignore file with secret
@@ -58,13 +54,9 @@ dump_sql() {
     sqlite3 -column -header $1 'SELECT * FROM performance_history'
 }
 
-server() {
-    python record-server.py
-}
+server() { python record-server.py }
 
-update() {
-    python update_records.py
-}
+update() { python update_records.py }
 
 help() {
     echo $blue"help$white      $magenta\$OTF HELP$white            prints this menu and exits"
